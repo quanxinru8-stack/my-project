@@ -34,15 +34,15 @@ sensorData_t 	sensorData;	/*传感器数据*/
 state_t 		state;		/*四轴姿态*/
 control_t 		control;	/*四轴控制参数*/
 
-void stabilizerInit(void)
-{
-	if(isInit) return;
+// void stabilizerInit(void)
+// {
+// 	if(isInit) return;
 	
-	stateControlInit();		/*姿态PID初始化*/
-	powerControlInit();		/*电机初始化*/
-	imuInit();				/*姿态解算初始化*/
-	isInit = true;
-}
+// 	stateControlInit();		/*姿态PID初始化*/
+// 	powerControlInit();		/*电机初始化*/
+// 	imuInit();				/*姿态解算初始化*/
+// 	isInit = true;
+// }
     
 // changed
 void stabilizerInitChanged(void)
@@ -59,61 +59,61 @@ void stabilizerInitChanged(void)
 	isInit = true;
 }
 
-void stabilizerTask(void* param)
-{
-	u32 tick = 0;
-	u32 lastWakeTime = getSysTickCnt();////****系统始终为1000hz******/////
+// void stabilizerTask(void* param)
+// {
+// 	u32 tick = 0;
+// 	u32 lastWakeTime = getSysTickCnt();////****系统始终为1000hz******/////
 	
-	//等待陀螺仪校准完成
-	while(!gyroIsCalibrationComplete())
-	{
-		vTaskDelayUntil(&lastWakeTime, M2T(1));/////***执行频率是1000hz******////
-	}
+// 	//等待陀螺仪校准完成
+// 	while(!gyroIsCalibrationComplete())
+// 	{
+// 		vTaskDelayUntil(&lastWakeTime, M2T(1));/////***执行频率是1000hz******////
+// 	}
 	
-	while(1) 
-	{
-		//1KHz运行频率
-		vTaskDelayUntil(&lastWakeTime, F2T(RATE_1000_HZ));	
+// 	while(1) 
+// 	{
+// 		//1KHz运行频率
+// 		vTaskDelayUntil(&lastWakeTime, F2T(RATE_1000_HZ));	
 		
-		//获取传感器数据
-		if (RATE_DO_EXECUTE(MAIN_LOOP_RATE, tick))
-		{
-			sensorsAcquire(&sensorData, tick);				
-		}
+// 		//获取传感器数据
+// 		if (RATE_DO_EXECUTE(MAIN_LOOP_RATE, tick))
+// 		{
+// 			sensorsAcquire(&sensorData, tick);				
+// 		}
 		
-		//四元数和欧拉角计算
-		if (RATE_DO_EXECUTE(ATTITUDE_ESTIMAT_RATE, tick))
-		{
-			imuUpdateAttitude(&sensorData, &state, ATTITUDE_ESTIMAT_DT);	///****包含两个主要函数，计算四元数和转换矩阵、欧拉角计算*****////
-		}
+// 		//四元数和欧拉角计算
+// 		if (RATE_DO_EXECUTE(ATTITUDE_ESTIMAT_RATE, tick))
+// 		{
+// 			imuUpdateAttitude(&sensorData, &state, ATTITUDE_ESTIMAT_DT);	///****包含两个主要函数，计算四元数和转换矩阵、欧拉角计算*****////
+// 		}
 		
-		//位置预估计算
-		if (RATE_DO_EXECUTE(POSITION_ESTIMAT_RATE, tick))
-		{  	
-			updatePositionEstimator(&sensorData, &state, POSITION_ESTIMAT_DT);////***由气压计和加速度计更新位置估计******////
-		}
+// 		//位置预估计算
+// 		if (RATE_DO_EXECUTE(POSITION_ESTIMAT_RATE, tick))
+// 		{  	
+// 			updatePositionEstimator(&sensorData, &state, POSITION_ESTIMAT_DT);////***由气压计和加速度计更新位置估计******////
+// 		}
 		
-		//目标姿态和飞行模式设定	
-		if (RATE_DO_EXECUTE(MAIN_LOOP_RATE, tick))
-		{
-			commanderGetSetpoint(&state, &setpoint);////****给出飞行模式以及遥控器控制量*****////
-			                                        ///****根据选定的飞行模式，得到setpoint中的mode、attitude、attitudeRate的相关量
-			updateArmingStatus();
-		}
+// 		//目标姿态和飞行模式设定	
+// 		if (RATE_DO_EXECUTE(MAIN_LOOP_RATE, tick))
+// 		{
+// 			commanderGetSetpoint(&state, &setpoint);////****给出飞行模式以及遥控器控制量*****////
+// 			                                        ///****根据选定的飞行模式，得到setpoint中的mode、attitude、attitudeRate的相关量
+// 			updateArmingStatus();
+// 		}
 		
-		//PID控制器计算控制输出
-		stateControl(&sensorData, &state, &setpoint, &control, tick); //***不考虑其他模式，只针对自稳模式，得到期望的角速度或角速率
-		                                                             ///再进行内外环的控制，高度方向不考虑定高模式，遥控器输出的直接是电机控制值
+// 		//PID控制器计算控制输出
+// 		stateControl(&sensorData, &state, &setpoint, &control, tick); //***不考虑其他模式，只针对自稳模式，得到期望的角速度或角速率
+// 		                                                             ///再进行内外环的控制，高度方向不考虑定高模式，遥控器输出的直接是电机控制值
 		
-		//控制电机输出（500Hz）
-		if (RATE_DO_EXECUTE(MAIN_LOOP_RATE, tick))
-		{
-			powerControl(&control);///按照布局间的对应，给出每个电机的油门值
-		}
+// 		//控制电机输出（500Hz）
+// 		if (RATE_DO_EXECUTE(MAIN_LOOP_RATE, tick))
+// 		{
+// 			powerControl(&control);///按照布局间的对应，给出每个电机的油门值
+// 		}
 		
-		tick++;
-	}
-}
+// 		tick++;
+// 	}
+// }
 
 //changed
 void stabilizerTaskChanged(void* param)
@@ -172,19 +172,18 @@ void stabilizerTaskChanged(void* param)
 		//step（50Hz）
         if (RATE_DO_EXECUTE(MOTOR_LOOP, tick))
 		{
-//			OutstepControl(&control);
+			OutstepControl(&control);
             Send_Control_Data(&control, &state);///step hardware speed
 //            float test_data[5] = {11.1f, 22.2f, 33.3f, 44.4f, 55.5f};
 //            UART5_Send_Float_Packet(test_data, 5);
-
 		}	
         
 		//写SD卡（25Hz）
 		//注意:不要频率太高，不然会写不进去！！！经过测试 25HZ是最稳定的！！！
-		if (RATE_DO_EXECUTE(RATE_25_HZ, tick))
-		{
-			WriteDataToSDOneLine(&state, &setpoint, &control, tick);
-		}	
+		// if (RATE_DO_EXECUTE(RATE_25_HZ, tick))
+		// {
+		// 	WriteDataToSDOneLine(&state, &setpoint, &control, tick);
+		// }	
 		
 		tick++;
 	}

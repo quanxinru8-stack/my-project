@@ -501,7 +501,7 @@ void Send_Control_Data(control_t *control, state_t *state)
 
 void allControl(void)
 {
-//    for(int i=0; i<5; i++){
+//    for(int i=0; i<5; i++){                                                           
 //    // ???+200
 //    StepMotorControl(5.0f, 0.0f); // QUADRANT_V
 //    while(stepmotor2.is_running);
