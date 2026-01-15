@@ -3238,8 +3238,8 @@ I (..\lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h)(0x5821F050)
 I (..\lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h)(0x581CC67B)
 I (..\lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h)(0x581CC67B)
 I (..\lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h)(0x581CC67B)
-F (..\src\drivers\src\stepmotor.c)(0x68357B6D)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\lib\CMSIS\CoreSupport\Include -I ..\lib\CMSIS\DeviceSupport\ST\STM32F4xx\Include -I ..\lib\FreeRTOS\include -I ..\lib\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\lib\STM32F4xx_StdPeriph_Driver\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_OTG_Driver\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_Device_Library\Core\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_Device_Library\Class\cdc\inc -I ..\src\common\interface -I ..\src\communicate\interface -I ..\src\config\interface -I ..\src\main -I ..\src\sensors\interface -I ..\src\system\delay -I ..\src\system\sys -I ..\src\system\usart -I ..\src\usb_vcp\interface -I ..\src\navigation -I ..\src\fc\interface -I ..\src\flight\interface -I ..\src\drivers\interface -I ..\src\sd_fatfs --diag_suppress=767,188,177-IF:\keil_v5.36\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F405xx -DSTM32F40_41xxx -DARM_MATH_CM4 -DUSE_STDPERIPH_DRIVER -DUSE_USB_OTG_FS-o ..\obj\stepmotor.o --omf_browse ..\obj\stepmotor.crf --depend ..\obj\stepmotor.d)
-I (..\src\drivers\interface\stepmotor.h)(0x68357AFB)
+F (..\src\drivers\src\stepmotor.c)(0x6964AA59)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\lib\CMSIS\CoreSupport\Include -I ..\lib\CMSIS\DeviceSupport\ST\STM32F4xx\Include -I ..\lib\FreeRTOS\include -I ..\lib\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\lib\STM32F4xx_StdPeriph_Driver\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_OTG_Driver\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_Device_Library\Core\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_Device_Library\Class\cdc\inc -I ..\src\common\interface -I ..\src\communicate\interface -I ..\src\config\interface -I ..\src\main -I ..\src\sensors\interface -I ..\src\system\delay -I ..\src\system\sys -I ..\src\system\usart -I ..\src\usb_vcp\interface -I ..\src\navigation -I ..\src\fc\interface -I ..\src\flight\interface -I ..\src\drivers\interface -I ..\src\sd_fatfs --diag_suppress=767,188,177-IF:\keil_v5.36\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F405xx -DSTM32F40_41xxx -DARM_MATH_CM4 -DUSE_STDPERIPH_DRIVER -DUSE_USB_OTG_FS-o ..\obj\stepmotor.o --omf_browse ..\obj\stepmotor.crf --depend ..\obj\stepmotor.d)
+I (..\src\drivers\interface\stepmotor.h)(0x6964AA58)
 I (..\src\system\sys\sys.h)(0x5B02B99C)
 I (F:\keil_v5.36\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 I (F:\keil_v5.36\ARM\ARMCC\include\stdint.h)(0x6025237E)
@@ -3791,7 +3791,7 @@ I (..\src\drivers\interface\motors.h)(0x62502643)
 I (..\src\config\interface\config.h)(0x5B98C924)
 I (..\src\drivers\interface\nvic.h)(0x5B584BAF)
 I (F:\keil_v5.36\ARM\ARMCC\include\stdio.h)(0x60252374)
-I (..\src\drivers\interface\stepmotor.h)(0x68357AFB)
+I (..\src\drivers\interface\stepmotor.h)(0x6964AA58)
 I (..\src\system\delay\delay.h)(0x583FE085)
 I (..\src\system\usart\usart.h)(0x59D080BC)
 I (..\src\drivers\interface\led.h)(0x5B584BAF)
@@ -3880,7 +3880,7 @@ I (..\src\sensors\interface\barometer.h)(0x5B9745B5)
 I (..\src\sensors\interface\sensorsalignment.h)(0x5B9884FD)
 I (..\lib\FreeRTOS\include\task.h)(0x573F3A16)
 I (..\lib\FreeRTOS\include\list.h)(0x5811D8E1)
-F (..\src\flight\src\stabilizer.c)(0x686CE84F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\lib\CMSIS\CoreSupport\Include -I ..\lib\CMSIS\DeviceSupport\ST\STM32F4xx\Include -I ..\lib\FreeRTOS\include -I ..\lib\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\lib\STM32F4xx_StdPeriph_Driver\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_OTG_Driver\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_Device_Library\Core\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_Device_Library\Class\cdc\inc -I ..\src\common\interface -I ..\src\communicate\interface -I ..\src\config\interface -I ..\src\main -I ..\src\sensors\interface -I ..\src\system\delay -I ..\src\system\sys -I ..\src\system\usart -I ..\src\usb_vcp\interface -I ..\src\navigation -I ..\src\fc\interface -I ..\src\flight\interface -I ..\src\drivers\interface -I ..\src\sd_fatfs --diag_suppress=767,188,177-IF:\keil_v5.36\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F405xx -DSTM32F40_41xxx -DARM_MATH_CM4 -DUSE_STDPERIPH_DRIVER -DUSE_USB_OTG_FS-o ..\obj\stabilizer.o --omf_browse ..\obj\stabilizer.crf --depend ..\obj\stabilizer.d)
+F (..\src\flight\src\stabilizer.c)(0x6964A9D4)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\lib\CMSIS\CoreSupport\Include -I ..\lib\CMSIS\DeviceSupport\ST\STM32F4xx\Include -I ..\lib\FreeRTOS\include -I ..\lib\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\lib\STM32F4xx_StdPeriph_Driver\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_OTG_Driver\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_Device_Library\Core\inc -I ..\lib\STM32_USB-Host-Device_Lib_V2.2.0\STM32_USB_Device_Library\Class\cdc\inc -I ..\src\common\interface -I ..\src\communicate\interface -I ..\src\config\interface -I ..\src\main -I ..\src\sensors\interface -I ..\src\system\delay -I ..\src\system\sys -I ..\src\system\usart -I ..\src\usb_vcp\interface -I ..\src\navigation -I ..\src\fc\interface -I ..\src\flight\interface -I ..\src\drivers\interface -I ..\src\sd_fatfs --diag_suppress=767,188,177-IF:\keil_v5.36\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F405xx -DSTM32F40_41xxx -DARM_MATH_CM4 -DUSE_STDPERIPH_DRIVER -DUSE_USB_OTG_FS-o ..\obj\stabilizer.o --omf_browse ..\obj\stabilizer.crf --depend ..\obj\stabilizer.d)
 I (F:\keil_v5.36\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (F:\keil_v5.36\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\src\drivers\interface\system.h)(0x6250465B)
@@ -3961,7 +3961,7 @@ I (..\src\flight\interface\power_control.h)(0x6232F951)
 I (..\src\flight\interface\pos_estimator.h)(0x5B974404)
 I (..\src\sensors\interface\gyro.h)(0x5B98C654)
 I (..\src\fc\interface\runtime_config.h)(0x6231E368)
-I (..\src\drivers\interface\stepmotor.h)(0x68357AFB)
+I (..\src\drivers\interface\stepmotor.h)(0x6964AA58)
 I (..\src\drivers\interface\motors.h)(0x62502643)
 I (..\src\system\usart\usart.h)(0x59D080BC)
 I (F:\keil_v5.36\ARM\ARMCC\include\math.h)(0x60252378)

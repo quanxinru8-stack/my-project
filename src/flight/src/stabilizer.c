@@ -172,10 +172,7 @@ void stabilizerTaskChanged(void* param)
 		//step£¨50Hz£©
         if (RATE_DO_EXECUTE(MOTOR_LOOP, tick))
 		{
-			OutstepControl(&control);
-            Send_Control_Data(&control, &state);///step hardware speed
-//            float test_data[5] = {11.1f, 22.2f, 33.3f, 44.4f, 55.5f};
-//            UART5_Send_Float_Packet(test_data, 5);
+			OutstepControl(&control, &state, &setpoint);
 		}	
         
 		//Ð´SD¿¨£¨25Hz£©
