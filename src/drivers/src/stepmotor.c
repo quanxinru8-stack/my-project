@@ -61,7 +61,8 @@ void Send_Control_Data(StepReflectionOut *out, state_t *state, setpoint_t *setpo
     UART5_Send_Float_Packet(tx_buf, 5);
     
     //printf("\n\rdelta_control:%.3f delta_controlp:%.3f roll:%.3f pitch:%.3f raw:%.3f\n\r",tx_buf[0],tx_buf[1],tx_buf[2],tx_buf[3],tx_buf[4]);
-    printf("n\rset_roll: %.3f \n\r set_pitch: %.3f", setpoint->attitude.roll, setpoint->attitude.pitch);
+    //printf("\n\rset_roll: %.3f \n\r set_pitch: %.3f", setpoint->attitude.roll, setpoint->attitude.pitch);
+    printf("\n\rrho: %.3f psi: %.3f", out->rho, out->psi);
 }
 
 static inline float clampf(float x, float lo, float hi)
@@ -85,8 +86,24 @@ static inline float pidUpdateDt(PID_t* pid, float error, float dt)
     const float p = pid->kp * error;
 
     // I (先积分再限幅)
-    pid->integrator += pid->ki * error * dt;
+    // ===== I: 积分分离 + 泄放 =====
+    const float e_abs = fabsf(error);
+
+    //积分分离阈值：误差大就不积分（0.2~0.4，归一化误差[-1,1]）
+    const float I_ENABLE_E = 0.25f;
+
+    //泄放系数：每秒衰减比例（0.5~2.0，越大回中越快）
+    const float I_LEAK_PER_S = 1.0f;
+
+    // 先泄放（避免积分长期残留）
+    pid->integrator *= (1.0f - I_LEAK_PER_S * dt);
     pid->integrator = clampf(pid->integrator, pid->i_min, pid->i_max);
+
+    // 再决定是否积分
+    if (e_abs < I_ENABLE_E) {
+        pid->integrator += pid->ki * error * dt;
+        pid->integrator = clampf(pid->integrator, pid->i_min, pid->i_max);
+    }
 
     // D（对误差求导）
     float d_raw = (error - pid->prev_error) / dt;
@@ -138,7 +155,7 @@ StepReflectionOut StepReflection(float ux, float uy)
 
     // 方向角（圆环）
     psi = atan2f(uy, ux) * RAD2DEG; // CCW+
-    psi = -psi;                     // 电机2：CW+
+    // psi = -psi;                     // 电机2：CW+
     
     if (psi > 90.0f) 
     {
@@ -154,13 +171,10 @@ StepReflectionOut StepReflection(float ux, float uy)
 
     psi = clampf(psi, -90.0f, 90.0f);
     rho = clampf(rho, -1.0f, 1.0f); 
-    if (rho < 8e-2f) 
+
+    if (rho < 0.05f) 
     {
-       psi = psi_prev;  // 或直接保持不动
-    }
-    else 
-    {
-       psi_prev = psi;
+       rho = 0.0f;
     }
 
     out.rho = rho;
@@ -168,10 +182,20 @@ StepReflectionOut StepReflection(float ux, float uy)
     return out;
 }
 
+
+
 void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint)
 {
     float e_roll  = control->delta_control;
     float e_pitch = control->delta_controlp;
+    // float e_roll  = 28;
+    // float e_pitch = -1.5;
+
+    if (fabsf(e_roll) < 2.0f) 
+    { // e_roll的死区保护，防止滑块在两个步进格之间来回横跳。
+        e_roll = 0;             // 忽略不计
+    }
+
     // 2) roll 做 wrap（pitch 不用）
     e_roll = wrapDeg180(e_roll);
 
@@ -186,6 +210,25 @@ void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint)
 
     float uy =  pidUpdateDt(&pid_angle_roll, e_roll_n, dt);
     float ux = -pidUpdateDt(&pid_angle_pitch, e_pitch_n, dt);
+
+
+        // ===== stick center detect (use your own threshold) =====
+    const float CENTER_E = 0.05f;   // 归一化误差阈值：0.02~0.08 自己调
+
+    if (fabsf(e_roll_n) < CENTER_E && fabsf(e_pitch_n) < CENTER_E)
+    {
+        // 回中：强制回零
+        StepReflectionOut out;
+        out.psi = 0.0f;
+        out.rho = 0.0f;   // 质量块也回到中心
+
+        // 清积分，防止松手后被 I 项拖偏
+        pidReset(&pid_angle_roll);
+        pidReset(&pid_angle_pitch);
+
+        Send_Control_Data(&out, state, setpoint);
+        return;
+    }
 
     StepReflectionOut out = StepReflection(ux, uy);
     Send_Control_Data(&out, state, setpoint);
