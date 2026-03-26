@@ -63,24 +63,26 @@ void powerControl(control_t *control)// controlt defined in stabilizer_types
 //changed
 void powerControlChanged(control_t *control)
 {
-	if(ARMING_FLAG(ARMED))//解锁状态
-	{
-		motorPWM.m1 = control->thrust;
-		motorPWM.m4 = control->thrust;
+	// if(ARMING_FLAG(ARMED))//解锁状态
+	// {
+	// 	motorPWM.m1 = control->thrust;
+	// 	motorPWM.m4 = control->thrust;
 		
-		motorPWM.m1 = constrain(motorPWM.m1, MINTHROTTLE, MAXTHROTTLE) - 1000;//减去1000基础值，实际油门应该是0-1000
-		motorPWM.m4 = constrain(motorPWM.m4, MINTHROTTLE, MAXTHROTTLE) - 1000;
-	}
-	else if (ARMING_FLAG(ARMING_DISABLED_PID_BYPASS))//电机测试模式，PID旁路
-	{
-		motorPWM.m1 = constrain(rcCommand[THROTTLE], RC_MIN, RC_MAX) - 1000;//减去1000基础值，实际油门应该是0-1000
-		motorPWM.m4 = constrain(rcCommand[THROTTLE], RC_MIN, RC_MAX) - 1000;
-	}
-	else
-	{
-		motorPWM.m1 = 0;
-		motorPWM.m4 = 0;
-	}
+	// 	motorPWM.m1 = constrain(motorPWM.m1, MINTHROTTLE, MAXTHROTTLE) - 1000;//减去1000基础值，实际油门应该是0-1000
+	// 	motorPWM.m4 = constrain(motorPWM.m4, MINTHROTTLE, MAXTHROTTLE) - 1000;
+	// }
+	// else if (ARMING_FLAG(ARMING_DISABLED_PID_BYPASS))//电机测试模式，PID旁路
+	// {
+	// 	motorPWM.m1 = constrain(rcCommand[THROTTLE], RC_MIN, RC_MAX) - 1000;//减去1000基础值，实际油门应该是0-1000
+	// 	motorPWM.m4 = constrain(rcCommand[THROTTLE], RC_MIN, RC_MAX) - 1000;
+	// }
+	// else
+	// {
+	// 	motorPWM.m1 = 0;
+	// 	motorPWM.m4 = 0;
+	// }
+	  motorPWM.m1 = constrain(rcCommand[THROTTLE], RC_MIN, RC_MAX) - 1000;
+      motorPWM.m4 = motorPWM.m1;
 	
 	motorsSetRatio(MOTOR_M1, motorPWM.m1);
 	motorsSetRatio(MOTOR_M4, motorPWM.m4);

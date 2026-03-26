@@ -9,7 +9,7 @@
  * All rights reserved.
 ********************************************************************************/
 PID_t pid_angle_roll  = {
-    .kp = 0.8f,
+    .kp = 1.2f,
     .ki = 0.15f,
     .kd = 0.0f,
 
@@ -172,7 +172,7 @@ StepReflectionOut StepReflection(float ux, float uy)
     psi = clampf(psi, -90.0f, 90.0f);
     rho = clampf(rho, -1.0f, 1.0f); 
 
-    if (rho < 0.05f) 
+    if (fabsf(rho) < 0.05f) 
     {
        rho = 0.0f;
     }
@@ -196,6 +196,11 @@ void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint)
         e_roll = 0;             // 忽略不计
     }
 
+    if (fabsf(e_pitch) < 2.0f) 
+    { // e_roll的死区保护，防止滑块在两个步进格之间来回横跳。
+        e_pitch = 0;             // 忽略不计
+    }
+
     // 2) roll 做 wrap（pitch 不用）
     e_roll = wrapDeg180(e_roll);
 
@@ -208,11 +213,10 @@ void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint)
     e_roll_n  = clampf(e_roll_n,  -1.0f, 1.0f);
     e_pitch_n = clampf(e_pitch_n, -1.0f, 1.0f);
 
-    float uy =  pidUpdateDt(&pid_angle_roll, e_roll_n, dt);
+    float uy = -pidUpdateDt(&pid_angle_roll, e_roll_n, dt);
     float ux = -pidUpdateDt(&pid_angle_pitch, e_pitch_n, dt);
 
-
-        // ===== stick center detect (use your own threshold) =====
+    // ===== stick center detect (use your own threshold) =====
     const float CENTER_E = 0.05f;   // 归一化误差阈值：0.02~0.08 自己调
 
     if (fabsf(e_roll_n) < CENTER_E && fabsf(e_pitch_n) < CENTER_E)
@@ -234,4 +238,6 @@ void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint)
     Send_Control_Data(&out, state, setpoint);
     
 }
+
+
 

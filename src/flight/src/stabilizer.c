@@ -169,7 +169,7 @@ void stabilizerTaskChanged(void* param)
 			powerControlChanged(&control);///按照布局间的对应，给出每个电机的油门值
 		}		
         
-		//step（50Hz）
+		//step（500Hz）
         if (RATE_DO_EXECUTE(MOTOR_LOOP, tick))
 		{
 			OutstepControl(&control, &state, &setpoint);

@@ -204,7 +204,7 @@ void stateControl(const sensorData_t *sensorData, const state_t *state, setpoint
 
 	// 增加自定义的控制量:roll
 	control->delta_control = setpoint->attitude.roll - state->attitude.roll; // set-state
-    control->delta_controlp = setpoint->attitude.pitch + state->attitude.pitch ;
+    control->delta_controlp = setpoint->attitude.pitch - state->attitude.pitch ;
 }
 
 //锁定当前航向角
