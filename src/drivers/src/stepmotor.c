@@ -44,10 +44,12 @@ PID_t pid_angle_pitch = {
     .d_state = 0
 };
 
-float dt = 0.02f; // 50Hz   
+#define STEPMOTOR_DT    (1.0f / 500.0f) // step control loop dt (s)
+float dt = STEPMOTOR_DT;
 static float psi = 0;
 static float rho = 0;
 static float psi_prev = 0;
+static uint8_t psi_fold_mode = 0; // 0: normal branch, 1: folded branch
 
 void Send_Control_Data(StepReflectionOut *out, state_t *state, setpoint_t *setpoint)
 {
@@ -156,20 +158,32 @@ StepReflectionOut StepReflection(float ux, float uy)
     // 方向角（圆环）
     psi = atan2f(uy, ux) * RAD2DEG; // CCW+
     // psi = -psi;                     // 电机2：CW+
-    
-    if (psi > 90.0f) 
-    {
-        psi -= 180.0f;
-        rho = -rho;
+
+    // 在 |psi|≈90° 附近加入滞回死区，避免 roll 主导时因 pitch 微小正负抖动而反复翻转 rho
+    const float PSI_FOLD_ENTER = 92.0f; // 进入折返分支阈值（度）
+    const float PSI_FOLD_EXIT  = 88.0f; // 退出折返分支阈值（度）
+    const float psi_abs = fabsf(psi);
+
+    if (psi_fold_mode) {
+        if (psi_abs < PSI_FOLD_EXIT) {
+            psi_fold_mode = 0;
+        }
+    } else {
+        if (psi_abs > PSI_FOLD_ENTER) {
+            psi_fold_mode = 1;
+        }
     }
 
-    else if (psi < -90.0f) 
-    {
-        psi += 180.0f;
+    if (psi_fold_mode) {
+        // 折返表示：psi 移到 [-90,90]，并同步翻转 rho（两者必须成对）
+        float psi_fold = (psi >= 0.0f) ? (psi - 180.0f) : (psi + 180.0f);
+        psi = clampf(psi_fold, -90.0f, 90.0f);
         rho = -rho;
+    } else {
+        psi = clampf(psi, -90.0f, 90.0f);
     }
 
-    psi = clampf(psi, -90.0f, 90.0f);
+    psi_prev = psi;
     rho = clampf(rho, -1.0f, 1.0f); 
 
     if (fabsf(rho) < 0.05f) 
@@ -238,6 +252,4 @@ void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint)
     Send_Control_Data(&out, state, setpoint);
     
 }
-
-
 
