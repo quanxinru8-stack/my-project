@@ -29,7 +29,7 @@ int main()
 }
 
 /*创建任务*/
-/* xTaskCreate(函数名, 名, 栈深度, NULL, 优先级, NULL) */
+/* xTaskCreate(函数名, 名, 栈深度, NULL, 优先级, NULL)  任务分配 调度*/
 void startTask(void *arg)
 {
 	taskENTER_CRITICAL();	/*进入临界区*/

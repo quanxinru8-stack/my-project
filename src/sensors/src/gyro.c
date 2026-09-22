@@ -11,6 +11,7 @@
 
 /*陀螺仪校准阈值*/
 #define GYRO_CALIBRATION_THRESHOLD	4.0f
+#define GYRO_CALIBRATION_MAX_RETRY    8
 
 /*低通滤波参数*/
 #define GYRO_LPF_CUTOFF_FREQ  	80.0f
@@ -18,7 +19,7 @@
 /*传感器对齐定义的机体坐标系的安装方向*/
 #define GYRO_ALIGN		CW270_DEG
 
-//mpu6000初始化陀螺仪量程为FSR_2000DPS，即
+//mpu6000初始化陀螺仪量程为FSR_2000DPS，即灵敏度除数
 #define GYRO_SCALE	16.4f
 
 typedef struct gyroCalibration_s 
@@ -41,6 +42,7 @@ Axis3i16 gyroADC;		//校准的AD数据
 Axis3f gyrof;			//转换单位为°/s的数据
 
 biquadFilter_t gyroFilterLPF[XYZ_AXIS_COUNT];//二阶低通滤波器
+static uint8_t gyroCalibrationRetryCount = 0; // 校准失败重试计数
 
 void gyroSetCalibrationCycles(uint16_t calibrationCyclesRequired)
 {
@@ -86,18 +88,26 @@ void performGyroCalibration(Axis3i16 gyroADCSample)
 			
             //检测方差值是否大于陀螺仪受到移动的阈值
 			//如果大于设定阈值则返回重新校准
-            if ((stddev > GYRO_CALIBRATION_THRESHOLD) || (stddev == 0)) 
-			{
-                gyroSetCalibrationCycles(CALIBRATING_GYRO_CYCLES);
-                return;
+            if ((stddev > GYRO_CALIBRATION_THRESHOLD) || (stddev == 0))
+            {
+                // 万向轴等存在持续微动时，允许有限次重试后放行，避免系统卡在开机校准
+                if (gyroCalibrationRetryCount < GYRO_CALIBRATION_MAX_RETRY)
+                {
+                    gyroCalibrationRetryCount++;
+                    gyroSetCalibrationCycles(CALIBRATING_GYRO_CYCLES);
+                    return;
+                }
             }
-			
+            
             //校准完成
             gyroCalibration.gyroZero.axis[axis] = (gyroCalibration.gyroSum.axis[axis] + (CALIBRATING_GYRO_CYCLES / 2)) / CALIBRATING_GYRO_CYCLES;
         }
     }
 	
     gyroCalibration.cycleCount--;
+    if (gyroCalibration.cycleCount == 0) {
+        gyroCalibrationRetryCount = 0;
+    }
 }
 
 bool gyroInit(float gyroUpdateRate)
@@ -107,6 +117,7 @@ bool gyroInit(float gyroUpdateRate)
 	
 	//初始化陀螺仪零偏校准
 	gyroSetCalibrationCycles(CALIBRATING_GYRO_CYCLES);
+    gyroCalibrationRetryCount = 0;
 	
 	//初始化二阶低通滤波
 	for (int axis = 0; axis < 3; axis++)
@@ -117,7 +128,7 @@ bool gyroInit(float gyroUpdateRate)
 }
 
 
-void gyroUpdate(Axis3f *gyro)
+void gyroUpdate(Axis3f *gyro)//更新陀螺仪数据
 {
 	//读取原始数据
 	if (!mpu6000GyroRead(&gyroADCRaw))
@@ -139,7 +150,7 @@ void gyroUpdate(Axis3f *gyro)
 		return;
 	}
 
-	//计算gyroADC值，减去零偏
+	//计算传感器原始数值gyroADC值，减去零偏
 	gyroADC.x = gyroADCRaw.x - gyroCalibration.gyroZero.x;
 	gyroADC.y = gyroADCRaw.y - gyroCalibration.gyroZero.y;
 	gyroADC.z = gyroADCRaw.z - gyroCalibration.gyroZero.z;
@@ -147,7 +158,7 @@ void gyroUpdate(Axis3f *gyro)
 	//板对齐
 	applyBoardAlignment(gyroADC.axis);
 	
-	//转换为单位 °/s 
+	//转换为单位 °/s  deg/s
 	gyrof.x = (float)gyroADC.x / GYRO_SCALE;
 	gyrof.y = (float)gyroADC.y / GYRO_SCALE;
 	gyrof.z = (float)gyroADC.z / GYRO_SCALE;

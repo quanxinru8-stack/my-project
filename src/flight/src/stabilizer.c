@@ -138,7 +138,7 @@ void stabilizerTaskChanged(void* param)
 		//获取传感器数据
 		if (RATE_DO_EXECUTE(MAIN_LOOP_RATE, tick))
 		{
-			sensorsAcquire(&sensorData, tick);
+			sensorsAcquire(&sensorData, tick);//****获取传感器数据，更新到全局变量sensorData中，供后续控制使用******/////
 		}
 
 		//四元数和欧拉角计算
@@ -163,17 +163,17 @@ void stabilizerTaskChanged(void* param)
 		//PID控制器计算控制输出
 		stateControl(&sensorData, &state, &setpoint, &control, tick); //***不考虑其他模式，只针对自稳模式，得到期望的角速度或角速率
 																	 ///再进行内外环的控制，高度方向不考虑定高模式，遥控器输出的直接是电机控制值
-		//控制电机输出（500Hz）
+		//控制电机输出（500Hz）无刷
 		if (RATE_DO_EXECUTE(MAIN_LOOP_RATE, tick))
 		{
 			powerControlChanged(&control);///按照布局间的对应，给出每个电机的油门值
-		}		
-        
-		//step（500Hz）
-        if (RATE_DO_EXECUTE(MOTOR_LOOP, tick))
-		{
-			OutstepControl(&control, &state, &setpoint);
 		}	
+			
+        //step（200Hz）
+        if (RATE_DO_EXECUTE(MOTOR_LOOP, tick))
+        {
+            OutstepControl(&control, &state, &setpoint, &sensorData); // <--- 增加了 &sensorData，地址传进去了
+        }
         
 		//写SD卡（25Hz）
 		//注意:不要频率太高，不然会写不进去！！！经过测试 25HZ是最稳定的！！！

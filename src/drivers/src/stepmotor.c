@@ -8,48 +8,78 @@
  * Date : 2022/3/21
  * All rights reserved.
 ********************************************************************************/
+// ================= 1. 外环：角度 PID =================
+// 作用：根据倾角误差，输出期望的角速度 (单位: deg/s)
 PID_t pid_angle_roll  = {
-    .kp = 1.2f,
-    .ki = 0.15f,
+    .kp = 2.5f,        
+    .ki = 0.0f,        
     .kd = 0.0f,
-
     .integrator = 0,
     .prev_error = 0,
-
-    .out_min = -1.0f,
-    .out_max =  1.0f,
-
-    .i_min = -0.5f,
-    .i_max =  0.5f,
-
+    .out_min = -100.0f, // 最大允许期望角速度 -100 deg/s
+    .out_max =  100.0f, // 最大允许期望角速度  100 deg/s
+    .i_min = 0.0f,
+    .i_max = 0.0f,
     .d_lpf_alpha = 0.0f,
     .d_state = 0
 };
 
 PID_t pid_angle_pitch = {
-    .kp = 0.8f,
-    .ki = 0.15f,
+    .kp = 2.5f,
+    .ki = 0.0f,
     .kd = 0.0f,
-
     .integrator = 0,
     .prev_error = 0,
-
-    .out_min = -1.0f,
-    .out_max =  1.0f,
-
-    .i_min = -0.5f,
-    .i_max =  0.5f,
-
+    .out_min = -100.0f,
+    .out_max =  100.0f,
+    .i_min = 0.0f,
+    .i_max = 0.0f,
     .d_lpf_alpha = 0.0f,
     .d_state = 0
 };
 
+// ================= 2. 内环：角速度 PID =================
+// 作用：根据角速度误差，输出给步进电机的归一化位置 [-1.0, 1.0]
+PID_t pid_rate_roll  = {
+    .kp = 0.02f,       
+    .ki = 0.05f,       
+    .kd = 0.001f,      
+    .integrator = 0,
+    .prev_error = 0,
+    .out_min = -1.0f,  // 最终给滑块的归一化限幅
+    .out_max =  1.0f,
+    .i_min = -0.5f,
+    .i_max =  0.5f,
+    .d_lpf_alpha = 0.2f, // 陀螺仪D项必须滤波
+    .d_state = 0
+};
+
+PID_t pid_rate_pitch = {
+    .kp = 0.02f,
+    .ki = 0.05f,
+    .kd = 0.001f,
+    .integrator = 0,
+    .prev_error = 0,
+    .out_min = -1.0f,
+    .out_max =  1.0f,
+    .i_min = -0.5f,
+    .i_max =  0.5f,
+    .d_lpf_alpha = 0.2f,
+    .d_state = 0
+};
+
 #define STEPMOTOR_DT    (1.0f / 500.0f) // step control loop dt (s)
+#define TILT_RESPONSE_GAIN_ROLL   1.8f
+#define TILT_RESPONSE_GAIN_PITCH  1.8f
+#define TILT_DEADBAND_DEG         0.8f
+#define STEP_CENTER_E             0.02f
+#define RHO_ZERO_E                0.02f
 float dt = STEPMOTOR_DT;
 static float psi = 0;
 static float rho = 0;
 static float psi_prev = 0;
 static uint8_t psi_fold_mode = 0; // 0: normal branch, 1: folded branch
+static uint16_t dbg_div = 0;
 
 void Send_Control_Data(StepReflectionOut *out, state_t *state, setpoint_t *setpoint)
 {
@@ -67,6 +97,29 @@ void Send_Control_Data(StepReflectionOut *out, state_t *state, setpoint_t *setpo
     printf("\n\rrho: %.3f psi: %.3f", out->rho, out->psi);
 }
 
+
+static void debugTiltControl(const control_t *control, const state_t *state, const setpoint_t *setpoint,
+                             float e_roll_raw, float e_pitch_raw,
+                             float e_roll_used, float e_pitch_used,
+                             float ux, float uy, const StepReflectionOut *out)
+{
+    (void)control;
+    // 500Hz loop -> print every 20 cycles (25Hz), avoid flooding serial output.
+    if (++dbg_div < 20)
+    {
+        return;
+    }
+    dbg_div = 0;
+
+    printf("\r\ndbg mode(r,p)=(%d,%d) set(r,p)=(%.2f,%.2f) att(r,p)=(%.2f,%.2f) delta_raw=(%.2f,%.2f) delta_used=(%.2f,%.2f) u=(%.3f,%.3f) out=(rho:%.3f psi:%.2f)",
+           setpoint->mode.roll, setpoint->mode.pitch,
+           setpoint->attitude.roll, setpoint->attitude.pitch,
+           state->attitude.roll, state->attitude.pitch,
+           e_roll_raw, e_pitch_raw,
+           e_roll_used, e_pitch_used,
+           ux, uy,
+           out->rho, out->psi);
+}
 static inline float clampf(float x, float lo, float hi)
 {
     return (x < lo) ? lo : (x > hi) ? hi : x;
@@ -186,7 +239,7 @@ StepReflectionOut StepReflection(float ux, float uy)
     psi_prev = psi;
     rho = clampf(rho, -1.0f, 1.0f); 
 
-    if (fabsf(rho) < 0.05f) 
+    if (fabsf(rho) < RHO_ZERO_E) 
     {
        rho = 0.0f;
     }
@@ -198,58 +251,72 @@ StepReflectionOut StepReflection(float ux, float uy)
 
 
 
-void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint)
+// 增加了入参 sensorData 
+void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint, const sensorData_t *sensorData)
 {
-    float e_roll  = control->delta_control;
-    float e_pitch = control->delta_controlp;
-    // float e_roll  = 28;
-    // float e_pitch = -1.5;
+    float e_roll_raw  = control->delta_control;
+    float e_pitch_raw = control->delta_controlp;
+    float e_roll  = e_roll_raw * TILT_RESPONSE_GAIN_ROLL;
+    float e_pitch = e_pitch_raw * TILT_RESPONSE_GAIN_PITCH;
 
-    if (fabsf(e_roll) < 2.0f) 
-    { // e_roll的死区保护，防止滑块在两个步进格之间来回横跳。
-        e_roll = 0;             // 忽略不计
-    }
+    // 1. 角度死区过滤
+    if (fabsf(e_roll) < TILT_DEADBAND_DEG)  e_roll = 0.0f;
+    if (fabsf(e_pitch) < TILT_DEADBAND_DEG) e_pitch = 0.0f;
 
-    if (fabsf(e_pitch) < 2.0f) 
-    { // e_roll的死区保护，防止滑块在两个步进格之间来回横跳。
-        e_pitch = 0;             // 忽略不计
-    }
-
-    // 2) roll 做 wrap（pitch 不用）
+    // 2. 角度限幅与环绕处理
     e_roll = wrapDeg180(e_roll);
-
     e_roll  = clampf(e_roll,  -30.0f, 30.0f);
     e_pitch = clampf(e_pitch, -30.0f, 30.0f);
 
-    float e_roll_n  = e_roll / 30.0f;  // [-1,1]
-    float e_pitch_n = e_pitch / 30.0f;
+    // ================= 串级第一环  角度外环 =================
+    // 输入：角度误差 (deg)
+    // 输出：期望角速度 (deg/s)
+    float target_rate_roll  = pidUpdateDt(&pid_angle_roll, e_roll, dt);
+    float target_rate_pitch = pidUpdateDt(&pid_angle_pitch, e_pitch, dt);
 
-    e_roll_n  = clampf(e_roll_n,  -1.0f, 1.0f);
-    e_pitch_n = clampf(e_pitch_n, -1.0f, 1.0f);
+    // ================= 串级第二环  角速度内环 =================
+    // 误差 = 期望角速度 - 实际角速度（陀螺仪数据）
+    float rate_error_roll  = target_rate_roll  - sensorData->gyro.x;
+    float rate_error_pitch = target_rate_pitch - sensorData->gyro.y;
 
-    float uy = -pidUpdateDt(&pid_angle_roll, e_roll_n, dt);
-    float ux = -pidUpdateDt(&pid_angle_pitch, e_pitch_n, dt);
+    // 输入：角速度误差 (deg/s)
+    // 输出：直角坐标系驱动量 [-1.0, 1.0]
+    float uy = -pidUpdateDt(&pid_rate_roll, rate_error_roll, dt);
+    float ux = -pidUpdateDt(&pid_rate_pitch, rate_error_pitch, dt);
 
-    // ===== stick center detect (use your own threshold) =====
-    const float CENTER_E = 0.05f;   // 归一化误差阈值：0.02~0.08 自己调
+    // ================= 回中与清积分保护 =================
+    const float CENTER_ANGLE_E = STEP_CENTER_E * 30.0f; 
+    const float CENTER_RATE_E  = 2.0f; // 允许的微小角速度漂移 (deg/s)
 
-    if (fabsf(e_roll_n) < CENTER_E && fabsf(e_pitch_n) < CENTER_E)
+    // 判定条件：角度极小 且 飞机不再旋转 时，机构归零
+    if (fabsf(e_roll) < CENTER_ANGLE_E && fabsf(e_pitch) < CENTER_ANGLE_E &&
+        fabsf(sensorData->gyro.x) < CENTER_RATE_E && fabsf(sensorData->gyro.y) < CENTER_RATE_E)
     {
-        // 回中：强制回零
         StepReflectionOut out;
         out.psi = 0.0f;
-        out.rho = 0.0f;   // 质量块也回到中心
+        out.rho = 0.0f;
 
-        // 清积分，防止松手后被 I 项拖偏
+        // 清除所有环的积分，防止拉扯
         pidReset(&pid_angle_roll);
         pidReset(&pid_angle_pitch);
+        pidReset(&pid_rate_roll);
+        pidReset(&pid_rate_pitch);
 
+        debugTiltControl(control, state, setpoint, e_roll_raw, e_pitch_raw, e_roll, e_pitch, 0.0f, 0.0f, &out);
         Send_Control_Data(&out, state, setpoint);
         return;
     }
 
+    // ================= 坐标转换与输出 =================
     StepReflectionOut out = StepReflection(ux, uy);
-    Send_Control_Data(&out, state, setpoint);
     
+    debugTiltControl(control, state, setpoint, e_roll_raw, e_pitch_raw, e_roll, e_pitch, ux, uy, &out);
+    Send_Control_Data(&out, state, setpoint);
 }
+
+
+
+
+
+
 

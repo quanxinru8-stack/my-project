@@ -15,7 +15,7 @@
  * All rights reserved
 ********************************************************************************/
 
-enum pidIndex
+enum pidIndex//定义系统中所有 PID 控制器编号（通道）
 {
 	RATE_ROLL = 0,
 	RATE_PITCH,
@@ -27,7 +27,8 @@ enum pidIndex
 	POSHOLD_Z,
 	VELOCITY_XY,
 	POSHOLD_XY,	
-	PID_NUM
+	
+      PID_NUM  // 确保 PID_NUM 始终在最后一个
 };
 
 void stateControlInit(void);

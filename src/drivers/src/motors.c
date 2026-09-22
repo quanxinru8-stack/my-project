@@ -6,7 +6,7 @@
 /********************************************************************************	 
  * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
  * ATKflight飞控固件
- * 电机驱动代码	
+ * 电机驱动代码	 开环方波六步换相驱动(BLDC) 主控只输出PWM信号，电调进行内部进行逆变和换相，输出能驱动电机的三相电流
  * 正点原子@ALIENTEK
  * 技术论坛:www.openedv.com
  * 创建日期:2018/5/2
@@ -166,7 +166,7 @@ void motorsSetRatioChanged(u32 id, u16 ithrust)
 		case 3:		/*MOTOR_M4*/
 			TIM_SetCompare4(TIM3, ratioToCCRx(ithrust));
 			break;
-		default: break;
+		default: break;//四个电机中只使用了M1和M4
 		}
 	}
 }

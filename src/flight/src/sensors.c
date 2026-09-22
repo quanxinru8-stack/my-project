@@ -101,7 +101,7 @@ void sensorsTask(void *param)
 
 		if (isMPUPresent && RATE_DO_EXECUTE(GYRO_UPDATE_RATE, tick))
 		{
-			gyroUpdate(&sensors.gyro);
+			gyroUpdate(&sensors.gyro);//调用陀螺仪更新数据gyroUpdate
 		}
 		
 		if (isMPUPresent && RATE_DO_EXECUTE(ACC_UPDATE_RATE, tick))

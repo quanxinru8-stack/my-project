@@ -20,7 +20,7 @@
 #define MAIN_LOOP_RATE 			RATE_500_HZ				//主循环速率
 #define MAIN_LOOP_DT			(1.0/MAIN_LOOP_RATE)	
 
-#define MOTOR_LOOP              RATE_500_HZ
+#define MOTOR_LOOP              RATE_200_HZ
 
 #define ATTITUDE_ESTIMAT_RATE	RATE_500_HZ				//姿态解算速率
 #define ATTITUDE_ESTIMAT_DT		(1.0/ATTITUDE_ESTIMAT_RATE)

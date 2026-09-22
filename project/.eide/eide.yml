@@ -1,0 +1,310 @@
+version: "4.1"
+name: Firmware_F405
+type: ARM
+deviceName: null
+packDir: null
+srcDirs: []
+virtualFolder:
+  name: <virtual_root>
+  files: []
+  folders:
+    - name: main
+      files:
+        - path: ../src/main/main.c
+        - path: ../src/main/system_stm32f4xx.c
+      folders: []
+    - name: config
+      files:
+        - path: ../src/config/src/config_param.c
+        - path: ../src/config/interface/config.h
+      folders: []
+    - name: fc
+      files:
+        - path: ../src/fc/src/commander.c
+        - path: ../src/fc/src/pm.c
+        - path: ../src/fc/src/rc_controls.c
+        - path: ../src/fc/src/runtime_config.c
+        - path: ../src/fc/src/rx.c
+        - path: ../src/fc/src/ledstrip.c
+      folders: []
+    - name: communicate
+      files:
+        - path: ../src/communicate/src/atkp.c
+        - path: ../src/communicate/src/console.c
+        - path: ../src/communicate/src/usblink.c
+      folders: []
+    - name: sensors
+      files:
+        - path: ../src/sensors/src/accelerometer.c
+        - path: ../src/sensors/src/barometer.c
+        - path: ../src/sensors/src/compass.c
+        - path: ../src/sensors/src/gyro.c
+        - path: ../src/sensors/src/sensorsalignment.c
+      folders: []
+    - name: common
+      files:
+        - path: ../src/common/src/debug_assert.c
+        - path: ../src/common/src/filter.c
+        - path: ../src/common/src/freeRTOSdebug.c
+        - path: ../src/common/src/maths.c
+      folders: []
+    - name: system
+      files:
+        - path: ../src/system/delay/delay.c
+        - path: ../src/system/sys/sys.c
+        - path: ../src/system/usart/usart.c
+      folders: []
+    - name: startup
+      files:
+        - path: ../lib/CMSIS/DeviceSupport/ST/STM32F4xx/Source/Templates/arm/startup_stm32f40_41xxx.s
+      folders: []
+    - name: usb_vcp
+      files:
+        - path: ../src/usb_vcp/src/usb_bsp.c
+        - path: ../src/usb_vcp/src/usbd_cdc_vcp.c
+        - path: ../src/usb_vcp/src/usbd_desc.c
+        - path: ../src/usb_vcp/src/usbd_usr.c
+      folders: []
+    - name: STM32F4xx_StdPeriph_Driver
+      files:
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/misc.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_adc.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_i2c.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_iwdg.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c
+        - path: ../lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.c
+      folders: []
+    - name: STM32_USB-Host-Device_Lib
+      files:
+        - path: ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/src/usb_core.c
+        - path: ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/src/usb_dcd.c
+        - path: ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/src/usb_dcd_int.c
+        - path: ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/src/usbd_core.c
+        - path: ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/src/usbd_ioreq.c
+        - path: ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/src/usbd_req.c
+        - path: ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Class/cdc/src/usbd_cdc_core.c
+      folders: []
+    - name: FreeRTOS
+      files:
+        - path: ../lib/FreeRTOS/portable/MemMang/heap_4.c
+        - path: ../lib/FreeRTOS/portable/RVDS/ARM_CM4F/port.c
+        - path: ../lib/FreeRTOS/list.c
+        - path: ../lib/FreeRTOS/queue.c
+        - path: ../lib/FreeRTOS/tasks.c
+        - path: ../lib/FreeRTOS/timers.c
+      folders: []
+    - name: readme
+      files:
+        - path: ../readme.txt
+      folders: []
+    - name: drivers
+      files:
+        - path: ../src/drivers/src/adc1.c
+        - path: ../src/drivers/src/beeper.c
+        - path: ../src/drivers/src/bmp280.c
+        - path: ../src/drivers/src/cppm.c
+        - path: ../src/drivers/src/exti.c
+        - path: ../src/drivers/src/hmc5883l.c
+        - path: ../src/drivers/src/i2c_drv.c
+        - path: ../src/drivers/src/i2cdev.c
+        - path: ../src/drivers/src/led.c
+        - path: ../src/drivers/src/motors.c
+        - path: ../src/drivers/src/mpu6000.c
+        - path: ../src/drivers/src/nvic.c
+        - path: ../src/drivers/src/spi1.c
+        - path: ../src/drivers/src/stepmotor.c
+        - path: ../src/drivers/src/stmflash.c
+        - path: ../src/drivers/src/system.c
+        - path: ../src/drivers/src/watchdog.c
+        - path: ../src/drivers/src/ws2812.c
+        - path: ../src/drivers/src/uart5.c
+        - path: ../src/drivers/src/uart1.c
+      folders: []
+    - name: flight
+      files:
+        - path: ../src/flight/src/imu.c
+        - path: ../src/flight/src/pid.c
+        - path: ../src/flight/src/pos_estimator.c
+        - path: ../src/flight/src/power_control.c
+        - path: ../src/flight/src/sensors.c
+        - path: ../src/flight/src/stabilizer.c
+        - path: ../src/flight/src/state_control.c
+      folders: []
+    - name: sd_fatfs
+      files:
+        - path: ../src/sd_fatfs/MMC_SD.c
+        - path: ../src/sd_fatfs/ff.c
+        - path: ../src/sd_fatfs/diskio.c
+        - path: ../src/sd_fatfs/cc936.c
+        - path: ../src/sd_fatfs/BSP_SPI.C
+      folders: []
+dependenceList: []
+outDir: build
+miscInfo: {}
+targets:
+  Firmware405:
+    cppPreprocessAttrs:
+      defineList:
+        - STM32F40_41xxx
+        - ARM_MATH_CM4
+        - USE_STDPERIPH_DRIVER
+        - USE_USB_OTG_FS
+      incList:
+        - ../lib/CMSIS/CoreSupport/Include
+        - ../lib/CMSIS/DeviceSupport/ST/STM32F4xx/Include
+        - ../lib/FreeRTOS/include
+        - ../lib/FreeRTOS/portable/RVDS/ARM_CM4F
+        - ../lib/STM32F4xx_StdPeriph_Driver/inc
+        - ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/inc
+        - ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/inc
+        - ../lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Class/cdc/inc
+        - ../src/common/interface
+        - ../src/communicate/interface
+        - ../src/config/interface
+        - ../src/main
+        - ../src/sensors/interface
+        - ../src/system/delay
+        - ../src/system/sys
+        - ../src/system/usart
+        - ../src/usb_vcp/interface
+        - ../src/navigation
+        - ../src/fc/interface
+        - ../src/flight/interface
+        - ../src/drivers/interface
+        - ../src/sd_fatfs
+        - .cmsis/include
+        - RTE/_Firmware405
+      libList: []
+    excludeList: []
+    settings:
+      debugger: cortex-debug
+    toolchain: AC5
+    toolchainConfigMap:
+      AC5:
+        archExtensions: ""
+        cpuType: Cortex-M4
+        floatingPointHardware: single
+        options:
+          version: 4
+          afterBuildTasks:
+            - name: "[Copy linker output for Keil User Commands]"
+              abortAfterFailed: true
+              command: mkdir ${KEIL_OUTPUT_DIR} & copy "${OutDir}\${ProjectName}.axf" "${KEIL_OUTPUT_DIR}\${ProjectName}.axf"
+              disable: true
+            - name: fromelf --bin !L -o .\BIN\Firmware_F411_V1.1.bin
+              abortAfterFailed: true
+              command: fromelf --bin ${KEIL_OUTPUT_DIR}\${ProjectName}.axf -o .\BIN\Firmware_F411_V1.1.bin
+              disable: true
+          asm-compiler:
+            defines: []
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            CXX_FLAGS: --diag_suppress=767,188,177
+            C_FLAGS: --diag_suppress=767,188,177
+            c99-mode: true
+            one-elf-section-per-function: true
+            optimization: level-0
+            warnings: unspecified
+          global:
+            output-debug-info: enable
+            use-microLIB: true
+          linker:
+            $outputTaskExcludes:
+              - .bin
+            output-format: elf
+            ro-base: "0x08000000"
+            rw-base: "0x20000000"
+            xo-base: ""
+        scatterFilePath: ""
+        storageLayout:
+          RAM:
+            - id: 1
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 2
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 3
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 1
+              isChecked: true
+              mem:
+                size: "0x20000"
+                startAddr: "0x20000000"
+              noInit: false
+              tag: IRAM
+            - id: 2
+              isChecked: true
+              mem:
+                size: "0x10000"
+                startAddr: "0x10000000"
+              noInit: false
+              tag: IRAM
+          ROM:
+            - id: 1
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 2
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 3
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 1
+              isChecked: true
+              isStartup: true
+              mem:
+                size: "0x80000"
+                startAddr: "0x8000000"
+              tag: IROM
+            - id: 2
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: IROM
+        useCustomScatterFile: false
+    uploadConfigMap:
+      JLink:
+        baseAddr: ""
+        bin: ""
+        cpuInfo:
+          cpuName: "null"
+          vendor: "null"
+        otherCmds: ""
+        proType: 1
+        speed: 8000
+    uploader: JLink

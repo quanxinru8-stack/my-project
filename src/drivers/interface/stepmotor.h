@@ -52,7 +52,7 @@ static inline void pidReset(PID_t* pid);
 
 static inline float pidUpdateDt(PID_t* pid, float error, float dt);
 
-void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint);
+void OutstepControl(control_t *control, state_t *state, setpoint_t *setpoint, const sensorData_t *sensorData);
 
 static inline float wrapDeg180(float x);
 
