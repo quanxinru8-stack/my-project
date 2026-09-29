@@ -1,0 +1,32 @@
+# 编译输出
+build/
+Debug/
+Release/
+Objects/
+Listings/
+
+# EIDE 下载的本地依赖
+.pack/
+.cmsis/
+
+# 日志和备份
+logs/
+recovery_backup/
+
+# 编译产生的文件
+*.o
+*.obj
+*.d
+*.dep
+*.elf
+*.axf
+*.map
+*.bin
+
+# 临时文件
+*.tmp
+*.bak
+*.log
+*~
+Thumbs.db
+.DS_Store
