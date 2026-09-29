@@ -1,0 +1,35 @@
+# EIDE 本地缓存
+**/.cmsis/
+**/.pack/
+**/build/
+**/logs/
+**/recovery_backup/
+
+# 编译输出
+**/Debug/
+**/Release/
+**/Objects/
+**/Listings/
+*.o
+*.obj
+*.d
+*.dep
+*.axf
+*.elf
+*.map
+*.bin
+*.hex
+*.lst
+
+# IDE 用户文件
+*.uvguix.*
+*.user
+*.suo
+
+# 临时文件
+*.tmp
+*.bak
+*.log
+*~
+Thumbs.db
+.DS_Store
