@@ -1,0 +1,23 @@
+name: Rename folders
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Rename project folders
+        run: |
+          git mv HAL_sourcecode_diff_car HAL_sourcecode_mass_actuated_uav
+          git mv HAL_sourcecode_diff_car_eide HAL_sourcecode_mass_actuated_uav_eide
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Rename project folders"
+          git push
