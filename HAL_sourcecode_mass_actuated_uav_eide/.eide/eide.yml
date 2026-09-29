@@ -10,140 +10,140 @@ virtualFolder:
   folders:
     - name: main
       files:
-        - path: ../HAL_sourcecode_diff_car/src/main/main.c
-        - path: ../HAL_sourcecode_diff_car/src/main/system_stm32f4xx.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/main/main.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/main/system_stm32f4xx.c
       folders: []
     - name: config
       files:
-        - path: ../HAL_sourcecode_diff_car/src/config/src/config_param.c
-        - path: ../HAL_sourcecode_diff_car/src/config/interface/config.h
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/config/src/config_param.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/config/interface/config.h
       folders: []
     - name: fc
       files:
-        - path: ../HAL_sourcecode_diff_car/src/fc/src/commander.c
-        - path: ../HAL_sourcecode_diff_car/src/fc/src/pm.c
-        - path: ../HAL_sourcecode_diff_car/src/fc/src/rc_controls.c
-        - path: ../HAL_sourcecode_diff_car/src/fc/src/runtime_config.c
-        - path: ../HAL_sourcecode_diff_car/src/fc/src/rx.c
-        - path: ../HAL_sourcecode_diff_car/src/fc/src/ledstrip.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/fc/src/commander.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/fc/src/pm.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/fc/src/rc_controls.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/fc/src/runtime_config.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/fc/src/rx.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/fc/src/ledstrip.c
       folders: []
     - name: communicate
       files:
-        - path: ../HAL_sourcecode_diff_car/src/communicate/src/atkp.c
-        - path: ../HAL_sourcecode_diff_car/src/communicate/src/console.c
-        - path: ../HAL_sourcecode_diff_car/src/communicate/src/usblink.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/communicate/src/atkp.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/communicate/src/console.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/communicate/src/usblink.c
       folders: []
     - name: sensors
       files:
-        - path: ../HAL_sourcecode_diff_car/src/sensors/src/accelerometer.c
-        - path: ../HAL_sourcecode_diff_car/src/sensors/src/barometer.c
-        - path: ../HAL_sourcecode_diff_car/src/sensors/src/compass.c
-        - path: ../HAL_sourcecode_diff_car/src/sensors/src/gyro.c
-        - path: ../HAL_sourcecode_diff_car/src/sensors/src/sensorsalignment.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sensors/src/accelerometer.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sensors/src/barometer.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sensors/src/compass.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sensors/src/gyro.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sensors/src/sensorsalignment.c
       folders: []
     - name: common
       files:
-        - path: ../HAL_sourcecode_diff_car/src/common/src/debug_assert.c
-        - path: ../HAL_sourcecode_diff_car/src/common/src/filter.c
-        - path: ../HAL_sourcecode_diff_car/src/common/src/freeRTOSdebug.c
-        - path: ../HAL_sourcecode_diff_car/src/common/src/maths.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/common/src/debug_assert.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/common/src/filter.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/common/src/freeRTOSdebug.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/common/src/maths.c
       folders: []
     - name: system
       files:
-        - path: ../HAL_sourcecode_diff_car/src/system/delay/delay.c
-        - path: ../HAL_sourcecode_diff_car/src/system/sys/sys.c
-        - path: ../HAL_sourcecode_diff_car/src/system/usart/usart.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/system/delay/delay.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/system/sys/sys.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/system/usart/usart.c
       folders: []
     - name: startup
       files:
-        - path: ../HAL_sourcecode_diff_car/lib/CMSIS/DeviceSupport/ST/STM32F4xx/Source/Templates/arm/startup_stm32f40_41xxx.s
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/CMSIS/DeviceSupport/ST/STM32F4xx/Source/Templates/arm/startup_stm32f40_41xxx.s
       folders: []
     - name: usb_vcp
       files:
-        - path: ../HAL_sourcecode_diff_car/src/usb_vcp/src/usb_bsp.c
-        - path: ../HAL_sourcecode_diff_car/src/usb_vcp/src/usbd_cdc_vcp.c
-        - path: ../HAL_sourcecode_diff_car/src/usb_vcp/src/usbd_desc.c
-        - path: ../HAL_sourcecode_diff_car/src/usb_vcp/src/usbd_usr.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/usb_vcp/src/usb_bsp.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/usb_vcp/src/usbd_cdc_vcp.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/usb_vcp/src/usbd_desc.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/usb_vcp/src/usbd_usr.c
       folders: []
     - name: STM32F4xx_StdPeriph_Driver
       files:
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/misc.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_adc.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_i2c.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_iwdg.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/misc.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_adc.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_i2c.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_iwdg.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.c
       folders: []
     - name: STM32_USB-Host-Device_Lib
       files:
-        - path: ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/src/usb_core.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/src/usb_dcd.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/src/usb_dcd_int.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/src/usbd_core.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/src/usbd_ioreq.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/src/usbd_req.c
-        - path: ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Class/cdc/src/usbd_cdc_core.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/src/usb_core.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/src/usb_dcd.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/src/usb_dcd_int.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/src/usbd_core.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/src/usbd_ioreq.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/src/usbd_req.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Class/cdc/src/usbd_cdc_core.c
       folders: []
     - name: FreeRTOS
       files:
-        - path: ../HAL_sourcecode_diff_car/lib/FreeRTOS/portable/MemMang/heap_4.c
-        - path: ../HAL_sourcecode_diff_car/lib/FreeRTOS/portable/RVDS/ARM_CM4F/port.c
-        - path: ../HAL_sourcecode_diff_car/lib/FreeRTOS/list.c
-        - path: ../HAL_sourcecode_diff_car/lib/FreeRTOS/queue.c
-        - path: ../HAL_sourcecode_diff_car/lib/FreeRTOS/tasks.c
-        - path: ../HAL_sourcecode_diff_car/lib/FreeRTOS/timers.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/FreeRTOS/portable/MemMang/heap_4.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/FreeRTOS/portable/RVDS/ARM_CM4F/port.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/FreeRTOS/list.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/FreeRTOS/queue.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/FreeRTOS/tasks.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/lib/FreeRTOS/timers.c
       folders: []
     - name: readme
       files:
-        - path: ../HAL_sourcecode_diff_car/readme.txt
+        - path: ../HAL_sourcecode_mass_actuated_uav/readme.txt
       folders: []
     - name: drivers
       files:
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/adc1.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/beeper.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/bmp280.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/cppm.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/exti.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/hmc5883l.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/i2c_drv.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/i2cdev.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/led.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/motors.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/mpu6000.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/nvic.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/spi1.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/stepmotor.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/stmflash.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/system.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/watchdog.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/ws2812.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/uart5.c
-        - path: ../HAL_sourcecode_diff_car/src/drivers/src/uart1.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/adc1.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/beeper.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/bmp280.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/cppm.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/exti.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/hmc5883l.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/i2c_drv.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/i2cdev.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/led.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/motors.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/mpu6000.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/nvic.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/spi1.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/stepmotor.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/stmflash.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/system.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/watchdog.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/ws2812.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/uart5.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/drivers/src/uart1.c
       folders: []
     - name: flight
       files:
-        - path: ../HAL_sourcecode_diff_car/src/flight/src/imu.c
-        - path: ../HAL_sourcecode_diff_car/src/flight/src/pid.c
-        - path: ../HAL_sourcecode_diff_car/src/flight/src/pos_estimator.c
-        - path: ../HAL_sourcecode_diff_car/src/flight/src/power_control.c
-        - path: ../HAL_sourcecode_diff_car/src/flight/src/sensors.c
-        - path: ../HAL_sourcecode_diff_car/src/flight/src/stabilizer.c
-        - path: ../HAL_sourcecode_diff_car/src/flight/src/state_control.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/flight/src/imu.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/flight/src/pid.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/flight/src/pos_estimator.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/flight/src/power_control.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/flight/src/sensors.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/flight/src/stabilizer.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/flight/src/state_control.c
       folders: []
     - name: sd_fatfs
       files:
-        - path: ../HAL_sourcecode_diff_car/src/sd_fatfs/MMC_SD.c
-        - path: ../HAL_sourcecode_diff_car/src/sd_fatfs/ff.c
-        - path: ../HAL_sourcecode_diff_car/src/sd_fatfs/diskio.c
-        - path: ../HAL_sourcecode_diff_car/src/sd_fatfs/cc936.c
-        - path: ../HAL_sourcecode_diff_car/src/sd_fatfs/BSP_SPI.C
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sd_fatfs/MMC_SD.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sd_fatfs/ff.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sd_fatfs/diskio.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sd_fatfs/cc936.c
+        - path: ../HAL_sourcecode_mass_actuated_uav/src/sd_fatfs/BSP_SPI.C
       folders: []
 dependenceList: []
 outDir: build
@@ -160,30 +160,30 @@ targets:
         - STM32F405xx
       incList:
         - .
-        - ../HAL_sourcecode_diff_car/lib/CMSIS/CoreSupport/Include
-        - ../HAL_sourcecode_diff_car/lib/CMSIS/DeviceSupport/ST/STM32F4xx/Include
-        - ../HAL_sourcecode_diff_car/lib/FreeRTOS/include
-        - ../HAL_sourcecode_diff_car/lib/FreeRTOS/portable/RVDS/ARM_CM4F
-        - ../HAL_sourcecode_diff_car/lib/STM32F4xx_StdPeriph_Driver/inc
-        - ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/inc
-        - ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/inc
-        - ../HAL_sourcecode_diff_car/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Class/cdc/inc
-        - ../HAL_sourcecode_diff_car/src/common/interface
-        - ../HAL_sourcecode_diff_car/src/communicate/interface
-        - ../HAL_sourcecode_diff_car/src/config/interface
-        - ../HAL_sourcecode_diff_car/src/main
-        - ../HAL_sourcecode_diff_car/src/sensors/interface
-        - ../HAL_sourcecode_diff_car/src/system/delay
-        - ../HAL_sourcecode_diff_car/src/system/sys
-        - ../HAL_sourcecode_diff_car/src/system/usart
-        - ../HAL_sourcecode_diff_car/src/usb_vcp/interface
-        - ../HAL_sourcecode_diff_car/src/navigation
-        - ../HAL_sourcecode_diff_car/src/fc/interface
-        - ../HAL_sourcecode_diff_car/src/flight/interface
-        - ../HAL_sourcecode_diff_car/src/drivers/interface
-        - ../HAL_sourcecode_diff_car/src/sd_fatfs
+        - ../HAL_sourcecode_mass_actuated_uav/lib/CMSIS/CoreSupport/Include
+        - ../HAL_sourcecode_mass_actuated_uav/lib/CMSIS/DeviceSupport/ST/STM32F4xx/Include
+        - ../HAL_sourcecode_mass_actuated_uav/lib/FreeRTOS/include
+        - ../HAL_sourcecode_mass_actuated_uav/lib/FreeRTOS/portable/RVDS/ARM_CM4F
+        - ../HAL_sourcecode_mass_actuated_uav/lib/STM32F4xx_StdPeriph_Driver/inc
+        - ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_OTG_Driver/inc
+        - ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Core/inc
+        - ../HAL_sourcecode_mass_actuated_uav/lib/STM32_USB-Host-Device_Lib_V2.2.0/STM32_USB_Device_Library/Class/cdc/inc
+        - ../HAL_sourcecode_mass_actuated_uav/src/common/interface
+        - ../HAL_sourcecode_mass_actuated_uav/src/communicate/interface
+        - ../HAL_sourcecode_mass_actuated_uav/src/config/interface
+        - ../HAL_sourcecode_mass_actuated_uav/src/main
+        - ../HAL_sourcecode_mass_actuated_uav/src/sensors/interface
+        - ../HAL_sourcecode_mass_actuated_uav/src/system/delay
+        - ../HAL_sourcecode_mass_actuated_uav/src/system/sys
+        - ../HAL_sourcecode_mass_actuated_uav/src/system/usart
+        - ../HAL_sourcecode_mass_actuated_uav/src/usb_vcp/interface
+        - ../HAL_sourcecode_mass_actuated_uav/src/navigation
+        - ../HAL_sourcecode_mass_actuated_uav/src/fc/interface
+        - ../HAL_sourcecode_mass_actuated_uav/src/flight/interface
+        - ../HAL_sourcecode_mass_actuated_uav/src/drivers/interface
+        - ../HAL_sourcecode_mass_actuated_uav/src/sd_fatfs
         - .cmsis/include
-        - ../HAL_sourcecode_diff_car/project/RTE/_Firmware405
+        - ../HAL_sourcecode_mass_actuated_uav/project/RTE/_Firmware405
       libList: []
     excludeList: []
     settings:
